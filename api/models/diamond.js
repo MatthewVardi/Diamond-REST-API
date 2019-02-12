@@ -7,6 +7,7 @@ const diamondSchema = mongoose.Schema({
     shape: {type: String, required: true}, // Round
     color: {type: String, required: true}, // F
     clarity: {type: String, required: true}, // SI2
+    carat: {type: Number, required: true},
     price: {type: Number, required: true}, // $5000
     certification: {type: String} // GIA
 

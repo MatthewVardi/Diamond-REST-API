@@ -1,7 +1,5 @@
 # Diamond-REST-API
 
-Initial Commit
-
 Created using Node.js
 
 #### **Will Include:**

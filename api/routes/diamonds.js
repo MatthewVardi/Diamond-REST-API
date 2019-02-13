@@ -9,7 +9,7 @@ const Diamond = require('../models/diamond');
 //Get Route (Returns all Diamonds)
 router.get('/',(req,res) => {
     Diamond.find()
-    .select('_id shape color clarity price certification') //Filter through unwanted results
+    .select('_id shape color carat clarity price certification') //Filter through unwanted results
     .exec()
     .then( items => {
         const response = {
@@ -19,12 +19,13 @@ router.get('/',(req,res) => {
                     shape: diamond.shape,
                     color: diamond.color,
                     clarity: diamond.clarity,
+                    carat: diamond.carat,
                     price: diamond.price,
                     certification: diamond.certification,
                     id: diamond._id,
                     request: {
                         request_type: 'GET', 
-                        url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + diamond._id
+                        url: 'Coming Soon'
                     }
                     
                 }

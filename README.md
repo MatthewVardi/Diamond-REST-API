@@ -24,13 +24,12 @@ The intent is to deploy this API with full documentation (using postman docs)
 	- Routes for reserving diamonds
 		- See all reserved - **Done**
 		- Reserve a diamond + date reserved - **Done**
-		- Route to see specific reservation
-		- Unreserve aka delete
+		- Route to see specific reservation - **Done**
+		- Unreserve aka delete - **Done**
 	- See all diamonds reserved by a particular user
-	- See all diamonds reserved
 	- Update diamond model to have reserved field: y/n
 	- Limit on how much you can reserve per user
-	- refrence to the user when listing all diamonds reserved
+	- refrence to the user when listing all diamonds reserved - **Done**
 - Seed the DB with Diamonds
 - Update responses with valid URL's for further requests
 - Hosting

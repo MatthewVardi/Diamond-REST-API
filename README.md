@@ -30,6 +30,7 @@ The intent is to deploy this API with full documentation (using postman docs)
 	- Update diamond model to have reserved field: y/n
 	- Limit on how much you can reserve per user
 	- refrence to the user when listing all diamonds reserved
+- Update responses with valid URL's for further requests
 - Hosting
 - Documentation using Postman Docs
 

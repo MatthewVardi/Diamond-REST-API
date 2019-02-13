@@ -22,14 +22,16 @@ The intent is to deploy this API with full documentation (using postman docs)
 - Insert auth middleware after all testing
 - Create reserve model
 	- Routes for reserving diamonds
-		- See all reserved
-		- Reserve a diamond + date reserved
-		- Unreserve 
+		- See all reserved - **Done**
+		- Reserve a diamond + date reserved - **Done**
+		- Route to see specific reservation
+		- Unreserve aka delete
 	- See all diamonds reserved by a particular user
 	- See all diamonds reserved
 	- Update diamond model to have reserved field: y/n
 	- Limit on how much you can reserve per user
 	- refrence to the user when listing all diamonds reserved
+- Seed the DB with Diamonds
 - Update responses with valid URL's for further requests
 - Hosting
 - Documentation using Postman Docs

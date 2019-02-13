@@ -100,6 +100,7 @@ router.get('/:diamondId', (req,res) => {
     })
 })
 
+//Patch/Update Route
 router.patch('/:diamondId', (req,res) => {
     const id = req.params.diamondId;
     //Updated fields will be in req.body
@@ -137,6 +138,8 @@ router.patch('/:diamondId', (req,res) => {
     })
 })
 
+
+//Delete Route
 router.delete("/:diamondId", (req,res) => {
     const id = req.params.diamondId;
     Diamond.remove({_id: id})

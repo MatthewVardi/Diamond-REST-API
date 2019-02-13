@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config() // Hide sensitive information
 const diamondRoutes = require('./api/routes/diamonds')
+const userRoutes = require('./api/routes/user')
 
 //Connect to MongoDB hosted on mLab
 //ENV Variables for authentication as DB Owner 
@@ -30,6 +31,7 @@ app.use((req,res,next) => {
 
 //Diamond Routes
 app.use('/diamonds', diamondRoutes);
+app.use('/user', userRoutes);
 
 
 

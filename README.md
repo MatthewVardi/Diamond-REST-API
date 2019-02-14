@@ -29,9 +29,10 @@ The intent is to deploy this API with full documentation (using postman docs)
 	- Update diamond model to have reserved field: y/n - **Done**
 	- refrence to the user when listing all diamonds reserved - **Done**
 	- Add name field for diamonds - **Done**
-- Seed the DB with Diamonds
+- Seed the DB with Diamonds - **Done**
 - Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
 - Update responses with valid URL's for further requests - **Done**
+- Refactor to include a controllers directory
 - Hosting
 	- Heroku
 	- ENV Var's

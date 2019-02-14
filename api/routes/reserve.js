@@ -6,6 +6,7 @@ const Reservation = require('../models/reserves');
 const checkAuth = require('../middleware/check-auth');
 const currentDate = require('../middleware/getDate')
 
+//GET all reservations
 router.get('/', (req, res) => {
     //mongoose .find() method returns all results
     Reservation.find()
@@ -20,10 +21,15 @@ router.get('/', (req, res) => {
                         reservation_id: result._id,
                         reserved_on: result.date,
                         diamond: result.diamond,
-                        //owner will be diamond.owner but for now will be a string
-                        owner: result.owner
+                        owner: result.owner,
+                        see_more: {
+                            type: 'GET',
+                            description: 'See Specific Reservation',
+                            endpoint: '/reserve/' + result._id
+                        }
                     }
                 })
+                
             })
         })
         .catch(err => {
@@ -56,9 +62,6 @@ router.post('/', checkAuth, (req, res) => {
             const reservation = new Reservation({
                 _id: mongoose.Types.ObjectId(),
                 diamond: req.body.diamondId,
-                //owner should be populated from verifying the token
-                //and returning the email associated with it
-                //instead of req.body.ownerId
                 reserved_by: req.userData.email,
                 date: curDate
             })
@@ -72,6 +75,11 @@ router.post('/', checkAuth, (req, res) => {
                     reserved_on: result.date,
                     diamond: result.diamond,
                     reserved_by: result.owner
+                },
+                see_more: {
+                    type: 'GET',
+                    description: 'See Specific Reservation',
+                    endpoint: '/reserve/' + result._id
                 }
             })
         })
@@ -98,10 +106,10 @@ router.get('/:reservationId', (req, res) => {
                 }
                 res.status(200).json({
                     reservation: reservation,
-                    request: {
+                    see_more: {
                         type: 'GET',
-                        message: 'See all reservations',
-                        url: 'coming soon'
+                        description: 'See All Reservations',
+                        endpoint: '/reserve'
                     }
                 })
             })
@@ -124,14 +132,12 @@ router.delete('/:reservationId', (req,res) => {
     Reservation.remove({_id: req.params.reservationId})
     .exec()
     .then( result => {
-        console.log(result)
         res.status(200).json({
             message: "Reservation Removed",
-            request: {
-                type: 'POST',
-                description: 'Make a reservation',
-                url: 'Coming soon',
-                params: { diamondId: 'Diamond ID'}
+            see_more: {
+                type: 'GET',
+                description: 'See All Reservations',
+                endpoint: '/reserve'
             }
         })
     })

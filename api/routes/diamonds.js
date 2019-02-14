@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
                         id: diamond._id,
                         see_more: {
                             request_type: 'GET',
-                            url: 'Coming Soon'
+                            description: 'See Specific Diamond',
+                            endpoint: '/diamonds/' + diamond._id
                         }
 
                     }
@@ -63,11 +64,12 @@ router.post('/', (req, res) => {
         .then(result => {
             res.status(200).json({
                 message: 'New Diamond Added Succesfully',
-                request: {
+                see_more: {
                     request_type: 'GET',
                     diamond_id: result._id,
+                    description: 'See Specific Diamond',
                     //var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                    url: 'Coming Soon'
+                    endpoint: '/diamonds/' + result._id
                 }
             })
         })
@@ -90,10 +92,10 @@ router.get('/:diamondId', (req, res) => {
             if (diamond) {
                 res.status(200).json({
                     diamond: diamond,
-                    request: {
+                    see_more: {
                         type: 'GET',
                         description: 'See All Diamonds',
-                        url: 'Coming Soon'
+                        endpoint: '/diamonds'
                     }
                 })
             } else {
@@ -138,10 +140,10 @@ router.patch('/:diamondId', (req, res) => {
         .then(result => {
             res.status(200).json({
                 message: "Diamond updated",
-                request: {
+                see_more: {
                     type: 'GET',
                     description: 'See Updated Diamond',
-                    url: 'Coming Soon'
+                    endpoint: '/diamonds/' + result._id
                 }
             })
         })
@@ -163,19 +165,10 @@ router.delete("/:diamondId", (req, res) => {
         .then(diamond => {
             res.status(200).json({
                 message: 'Product Deleted',
-                request: {
-                    type: 'POST',
-                    message: 'Post Request Instructions',
-                    url: 'Coming Soon',
-                    body: {
-                        name: 'String',
-                        shape: 'String',
-                        color: 'String',
-                        clarity: 'String',
-                        carat: 'Number',
-                        price: 'Number',
-                        certification: 'String'
-                    }
+                see_more: {
+                    type: 'GET',
+                    Description: 'See All Diamonds',
+                    endpoint: '/diamonds'
                 }
             })
         })

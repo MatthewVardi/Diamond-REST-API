@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const reserveSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     diamond: { type: mongoose.Schema.Types.ObjectId, ref: 'Diamond', required: true}, 
-    owner: { type: String },
+    reserved_by: { type: String },
     date: {type: String}
 })
 

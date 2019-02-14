@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     //mongoose .find() method returns all results
     Reservation.find()
         .select('diamond owner _id date')
-        .populate('diamond', '_id price carat')
+        .populate('diamond', '_id name')
         .exec()
         .then(results => {
             res.status(200).json({
@@ -47,6 +47,11 @@ router.post('/', checkAuth, (req, res) => {
                     message: "Diamond Not Found"
                 })
             }
+            //Update available field on diamond model before creating reservation
+            Diamond.findByIdAndUpdate(req.body.diamondId, { $set: { available: 'No' }}, (err,res) => {
+                if (err) {console.log(err)}
+                console.log('Response' + res)
+            })
 
             const reservation = new Reservation({
                 _id: mongoose.Types.ObjectId(),
@@ -54,7 +59,7 @@ router.post('/', checkAuth, (req, res) => {
                 //owner should be populated from verifying the token
                 //and returning the email associated with it
                 //instead of req.body.ownerId
-                owner: req.userData.email,
+                reserved_by: req.userData.email,
                 date: curDate
             })
             return reservation.save()
@@ -66,7 +71,7 @@ router.post('/', checkAuth, (req, res) => {
                     reservation_id: result._id,
                     reserved_on: result.date,
                     diamond: result.diamond,
-                    owner: result.owner
+                    reserved_by: result.owner
                 }
             })
         })
@@ -82,7 +87,8 @@ router.post('/', checkAuth, (req, res) => {
 //Get specific reservation information - contains all diamond info
 router.get('/:reservationId', (req, res) => {
     Reservation.findById(req.params.reservationId)
-        .populate('diamond', '_id shape color clarity carat price certification ') // return full diamond information minus _v0
+        .populate('diamond', '_id name shape color clarity carat price certification ') 
+        // return full diamond information minus _v0
         .exec()
         .then(reservation => {
                 if (!reservation) {
@@ -107,9 +113,14 @@ router.get('/:reservationId', (req, res) => {
 })
 
 
-//Delete reservation
-//In future will have update the field on the Diamond schema reserved: y/n
+//Delete reservation route
 router.delete('/:reservationId', (req,res) => {
+    //Update available field on diamond model before deleting reservation
+    Diamond.findByIdAndUpdate(req.body.diamondId, { $set: { available: 'Yes' }}, (err,res) => {
+        if (err) {console.log(err)}
+        console.log('Response ' + res)
+    })
+
     Reservation.remove({_id: req.params.reservationId})
     .exec()
     .then( result => {

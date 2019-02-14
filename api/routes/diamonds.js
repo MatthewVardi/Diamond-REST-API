@@ -9,21 +9,23 @@ const Diamond = require('../models/diamond');
 //Get Route (Returns all Diamonds)
 router.get('/', (req, res) => {
     Diamond.find()
-        .select('_id shape color carat clarity price certification') //Filter through unwanted results
+        .select('_id name shape color carat clarity price certification available') //Filter through unwanted results
         .exec()
         .then(items => {
             const response = {
                 count: items.length,
                 diamonds: items.map(diamond => {
                     return {
-                        shape: diamond.shape,
-                        color: diamond.color,
-                        clarity: diamond.clarity,
-                        carat: diamond.carat,
-                        price: diamond.price,
-                        certification: diamond.certification,
+                        name: diamond.name,
+                        available: diamond.available,
+                        // shape: diamond.shape,
+                        // color: diamond.color,
+                        // clarity: diamond.clarity,
+                        // carat: diamond.carat,
+                        // price: diamond.price,
+                        // certification: diamond.certification,
                         id: diamond._id,
-                        request: {
+                        see_more: {
                             request_type: 'GET',
                             url: 'Coming Soon'
                         }
@@ -48,7 +50,7 @@ router.post('/', (req, res) => {
     //Diamond Constructor
     const diamond = new Diamond({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
+        name: `${req.body.shape} Cut ${req.body.carat} CT ${req.body.color} ${req.body.clarity}`,
         shape: req.body.shape,
         color: req.body.color,
         clarity: req.body.clarity,
@@ -63,6 +65,7 @@ router.post('/', (req, res) => {
                 message: 'New Diamond Added Succesfully',
                 request: {
                     request_type: 'GET',
+                    diamond_id: result._id,
                     //var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
                     url: 'Coming Soon'
                 }
@@ -80,7 +83,7 @@ router.get('/:diamondId', (req, res) => {
     const id = req.params.diamondId;
     Diamond.findById(id)
         //Filter Results (omitting _v0)
-        .select('_id shape color clarity price certification')
+        .select('_id name shape color clarity carat price certification available')
         .exec()
         .then(diamond => {
             console.log(diamond)

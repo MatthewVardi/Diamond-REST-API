@@ -32,10 +32,10 @@ The intent is to deploy this API with full documentation (using postman docs)
 - Seed the DB with Diamonds - **Done**
 - Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
 - Update responses with valid URL's for further requests - **Done**
-- Hosting
-	- Heroku
-	- ENV Var's
-	- Testing
+- Hosting - **Done**
+	- Heroku - **Done**
+	- ENV Vars - **Done**
+	- Testing - **Done**
 - Documentation using Postman Docs
 
 Created by Matthew Vardi

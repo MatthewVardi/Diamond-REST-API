@@ -10,7 +10,7 @@ const currentDate = require('../middleware/getDate')
 router.get('/', (req, res) => {
     //mongoose .find() method returns all results
     Reservation.find()
-        .select('diamond owner _id date')
+        .select('diamond reserved_by _id date')
         .populate('diamond', '_id name')
         .exec()
         .then(results => {
@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
                     return {
                         reservation_id: result._id,
                         reserved_on: result.date,
+                        reserved_by: result.reserved_by,
                         diamond: result.diamond,
-                        owner: result.owner,
                         see_more: {
                             type: 'GET',
                             description: 'See Specific Reservation',

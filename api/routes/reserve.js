@@ -129,16 +129,25 @@ router.delete('/:reservationId', (req,res) => {
         console.log('Response ' + res)
     })
 
-    Reservation.remove({_id: req.params.reservationId})
+    Reservation.findById({_id: req.params.reservationId})
     .exec()
     .then( result => {
-        res.status(200).json({
-            message: "Reservation Removed",
-            see_more: {
-                type: 'GET',
-                description: 'See All Reservations',
-                endpoint: '/reserve'
-            }
+        if (!result) {
+            return res.status(404).json({
+                message: "Reservation Not Found"
+            })  
+        }
+        Reservation.remove({_id: req.params.reservationId})
+        .exec()
+        .then(remres => {
+            res.status(200).json({
+                message: "Reservation Removed",
+                see_more: {
+                    type: 'GET',
+                    description: 'See All Reservations',
+                    endpoint: '/reserve'
+                }
+            })
         })
     })
     .catch(err => {

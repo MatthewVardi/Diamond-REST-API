@@ -30,7 +30,7 @@ The intent is to deploy this API with full documentation (using postman docs)
 	- refrence to the user when listing all diamonds reserved - **Done**
 	- Add name field for diamonds - **Done**
 - Seed the DB with Diamonds
-- Error handling for invalid ID's (/diamonds and /reserve DELETE request)
+- Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
 - Update responses with valid URL's for further requests - **Done**
 - Hosting
 - Documentation using Postman Docs

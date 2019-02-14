@@ -41,7 +41,7 @@ app.use('/reserve', reserveRoutes);
 
 //Default error
 app.use((req,res,next) => {
-    const error = new Error('Not found');
+    const error = new Error('Not a valid endpoint');
     error.status = 404;
     next(error);
 })

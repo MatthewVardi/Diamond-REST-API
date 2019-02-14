@@ -158,11 +158,17 @@ router.patch('/:diamondId', (req, res) => {
 //Delete Route
 router.delete("/:diamondId", (req, res) => {
     const id = req.params.diamondId;
-    Diamond.remove({
-            _id: id
-        })
+    Diamond.findById({_id: id})
+    .exec()
+    .then(diamond => {
+        if (!diamond) {
+            return res.status(404).json({
+                message: "Diamond Not Found"
+            })
+        }
+        Diamond.remove({_id: id})
         .exec()
-        .then(diamond => {
+        .then(result => {
             res.status(200).json({
                 message: 'Product Deleted',
                 see_more: {
@@ -172,11 +178,13 @@ router.delete("/:diamondId", (req, res) => {
                 }
             })
         })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
+        
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            error: err
         })
+    })
 })
 module.exports = router;

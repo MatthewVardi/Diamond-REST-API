@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Diamond = require('../models/diamond');
+const checkAuth = require('../middleware/check-auth')
 
 
 //Missing auth middleware currently, yet to be made
@@ -47,7 +48,7 @@ router.get('/', (req, res) => {
 })
 
 //Post Route
-router.post('/', (req, res) => {
+router.post('/', checkAuth, (req, res) => {
     //Diamond Constructor
     const diamond = new Diamond({
         _id: new mongoose.Types.ObjectId(),
@@ -113,7 +114,7 @@ router.get('/:diamondId', (req, res) => {
 })
 
 //Patch/Update Route
-router.patch('/:diamondId', (req, res) => {
+router.patch('/:diamondId',checkAuth, (req, res) => {
     const id = req.params.diamondId;
     //Updated fields will be in req.body
     //We populate this object with the data
@@ -156,7 +157,7 @@ router.patch('/:diamondId', (req, res) => {
 
 
 //Delete Route
-router.delete("/:diamondId", (req, res) => {
+router.delete("/:diamondId",checkAuth, (req, res) => {
     const id = req.params.diamondId;
     Diamond.findById({_id: id})
     .exec()

@@ -19,7 +19,7 @@ Information is exchanged in JSON format
 The intent is to deploy this API with full documentation (using postman docs)
 
 #### **To Do:**
-- Insert auth middleware after all testing
+- Insert auth middleware after all testing - **Done**
 - Create reserve model
 	- Routes for reserving diamonds
 		- See all reserved - **Done**
@@ -32,7 +32,6 @@ The intent is to deploy this API with full documentation (using postman docs)
 - Seed the DB with Diamonds - **Done**
 - Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
 - Update responses with valid URL's for further requests - **Done**
-- Refactor to include a controllers directory
 - Hosting
 	- Heroku
 	- ENV Var's

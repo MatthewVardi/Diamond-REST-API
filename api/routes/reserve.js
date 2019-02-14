@@ -93,7 +93,7 @@ router.post('/', checkAuth, (req, res) => {
 
 
 //Get specific reservation information - contains all diamond info
-router.get('/:reservationId', (req, res) => {
+router.get('/:reservationId',checkAuth, (req, res) => {
     Reservation.findById(req.params.reservationId)
         .populate('diamond', '_id name shape color clarity carat price certification ') 
         // return full diamond information minus _v0
@@ -122,7 +122,7 @@ router.get('/:reservationId', (req, res) => {
 
 
 //Delete reservation route
-router.delete('/:reservationId', (req,res) => {
+router.delete('/:reservationId',checkAuth, (req,res) => {
     //Update available field on diamond model before deleting reservation
     Diamond.findByIdAndUpdate(req.body.diamondId, { $set: { available: 'Yes' }}, (err,res) => {
         if (err) {console.log(err)}

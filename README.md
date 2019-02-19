@@ -1,5 +1,10 @@
-# Diamond-API
-This API is a RESTful API
+# Diamond API
+
+Use this API to interact with a list of Diamonds and make Reservations for them.
+
+This concept / relationship is similar to a products and orders relationship.
+
+This API is a RESTful API and supports CRUD.
 
 Data is exchanged in JSON format
 
@@ -14,7 +19,7 @@ You can interact with my API using [Postman](https://www.getpostman.com/).
 
 The Diamond API uses the endpoint: https://diamondapi.herokuapp.com.
 
-Endpoints that require authentication will have a * next to the verb.
+Endpoints that require authentication will have a * next to the HTTP verb.
 
 ## Authentication
 
@@ -51,29 +56,29 @@ Make a POST Request to /user/login with the following:
 Example Body:
 
 ```javascript
-{
-	"email": "youremailgoeshere",
-	"password": "yourpasswordgoeshere"
+{  
+   "email":"youremailgoeshere",
+   "password":"yourpasswordgoeshere"
 }
 ```
 
 
 Example Response:
 ```javascript
-{
-    "message": "Authentication Successful",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAYWRtaW4uY29tIiwidXNlcklkIjoiNWM2YjQ3YjU3MmFlM2MwMDI0Nzg3YjU2IiwiaWF0IjoxNTUwNTM0NjkyLCJleHAiOjE1NTA1MzgyOTJ9.8--OFArDsBlMMeOYKrUFH3mma_VdeNyevseoZVnTt7E",
-    "user_id": "5c6b47b572ae3c0024787b56"
+{  
+   "message":"Authentication Successful",
+   "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAYWRtaW4uY29tIiwidXNlcklkIjoiNWM2YjQ3YjU3MmFlM2MwMDI0Nzg3YjU2IiwiaWF0IjoxNTUwNTM0NjkyLCJleHAiOjE1NTA1MzgyOTJ9.8--OFArDsBlMMeOYKrUFH3mma_VdeNyevseoZVnTt7E",
+   "user_id":"5c6b47b572ae3c0024787b56"
 }
 ```
 
 Save this token from the response as it will be used as the value for your API Key.
 
-The token will remain valid for 1 hour, after that you must authenticate again. 
+The token will remain valid for <strong>1 hour</strong>, after that you must authenticate again. 
 
 All subsequent calls that make any modificications to the data must include this key in the header.
 
-In order to use the token, include a key-value pair in the header where
+In order to use the token, include a key-value pair in the header where:
 ```
 Key: "Bearer Token"
 
@@ -83,8 +88,8 @@ Value: {Token Goes Here}
 If you do not include your key when using endpoints that require authentication, you will receive this response:
 
 ```javascript
-{
-    "message": "Authentication Failed"
+{  
+   "message":"Authentication Failed"
 }
 ```
 
@@ -96,9 +101,9 @@ HTTP Verb - End Point - Description
 
 <strong>Diamonds</strong>
 
-Interact with all diamonds in the database
+Interact with all diamonds in the database.
 
-GET - /diamonds - Returns a list of all diamonds
+GET - /diamonds - Returns a list of all diamonds.
 
 Example Response:
 
@@ -132,7 +137,7 @@ Example Response:
 }
 ```
 
-GET - /diamonds/{diamondId} - See Specific Diamond (More Detailed)
+GET - /diamonds/{diamondId} - See Specific Diamond (More Detailed).
 
  Example Response:
 
@@ -156,7 +161,7 @@ GET - /diamonds/{diamondId} - See Specific Diamond (More Detailed)
    }
 }
 ```
-*POST - /diamonds - Upload a new diamond to the database
+*POST - /diamonds - Upload a new diamond to the database.
 
 Example Body:
 
@@ -184,7 +189,7 @@ Example Response:
 }
 ```
 
-*PATCH - /diamonds/{diamondId} - Update a diamond in the database
+*PATCH - /diamonds/{diamondId} - Update a diamond in the database.
 
 Example Body:
 
@@ -215,7 +220,7 @@ Example Response:
 }
 ```
 
-*DELETE - /diamonds/{diamondId} - Delete a diamond from the database
+*DELETE - /diamonds/{diamondId} - Delete a diamond from the database.
 
 Example Response:
 
@@ -230,15 +235,121 @@ Example Response:
 }
 ```
 
+<strong>Reservations</strong>
 
+This resource builds on the diamond resource.
 
+Interact with all reservations in the database.
 
+GET - /reserve - Returns a list of all reservations.
 
+Example Response:
 
+```javascript
+{
+   "count":2,
+   "reservations":[
+      {
+         "reservation_id":"5c65e4e1021e6200249f62c9",
+         "reserved_on":"02/14/2019",
+         "reserved_by":"user@password.com",
+         "diamond":{
+            "_id":"5c65bdab96ef372de8ddb86c",
+            "name":"Princess Cut 1.2 CT G SI1"
+         },
+         "see_more":{
+            "type":"GET",
+            "description":"See Specific Reservation",
+            "endpoint":"/reserve/5c65e4e1021e6200249f62c9"
+         }
+      },
+      {
+         "reservation_id":"5c65e808021e6200249f62ca",
+         "reserved_on":"02/14/2019",
+         "reserved_by":"user@password.com",
+         "diamond":{
+            "_id":"5c65d9a5098da0323c859553",
+            "name":"Round Cut 3 CT H SI"
+         },
+         "see_more":{
+            "type":"GET",
+            "description":"See Specific Reservation",
+            "endpoint":"/reserve/5c65e808021e6200249f62ca"
+         }
+      }
+   ]
+}
+```
 
+GET - /reserve/{reservationId} - See Specific Information about a reservation.
 
+Example Response:
 
+```javascript
+{  
+   "reservation":{  
+      "_id":"5c65e4e1021e6200249f62c9",
+      "diamond":{  
+         "_id":"5c65bdab96ef372de8ddb86c",
+         "name":"Princess Cut 1.2 CT G SI1",
+         "shape":"Princess",
+         "color":"G",
+         "clarity":"SI1",
+         "carat":1.2,
+         "price":1450,
+         "certification":"EGL"
+      },
+      "reserved_by":"user@password.com",
+      "date":"02/14/2019",
+      "__v":0
+   },
+   "see_more":{  
+      "type":"GET",
+      "description":"See All Reservations",
+      "endpoint":"/reserve"
+   }
+}
+```
 
+POST - /reserve - Make a new reservation in the database.
+
+Example Body:
+```javascript
+{  
+   "diamondId": "5c65bdab96ef372de8ddb86c"
+}
+```
+
+Example Response:
+```javascript
+{
+   "message":"Reservation Created",
+   "createdReservation":{
+      "reservation_id":"5c6b617d4839b800248f3544",
+      "reserved_on":"02/19/2019",
+      "diamond":"5c65bdab96ef372de8ddb86c"
+   },
+   "see_more":{
+      "type":"GET",
+      "description":"See Specific Reservation",
+      "endpoint":"/reserve/5c6b617d4839b800248f3544"
+   }
+}
+```
+DELETE - /reserve/{reservationId} - Delete a reservation from the database.
+
+Example Response:
+
+```javascript
+{  
+   "message":"Reservation Removed",
+   "see_more":{  
+      "type":"GET",
+      "description":"See All Reservations",
+      "endpoint":"/reserve"
+   }
+}
+```
 
 
 ---
@@ -246,7 +357,7 @@ Example Response:
 
 Created using Node.js
 
-#### **Will Include:**
+#### **Project Includes:**
 
 - RESTful Endpoints
 - CRUD
@@ -257,30 +368,10 @@ Created using Node.js
 - Error Handling
 - Data persistence
 
+This API is built using Node.js / Express / MongoDB
+Authentication was created using "bcrypt" and "jsonwebtoken"
 
-Information is exchanged in JSON format
-
-The intent is to deploy this API with full documentation (using postman docs)
-
-#### **To Do:**
-- Insert auth middleware after all testing - **Done**
-- Create reserve model
-	- Routes for reserving diamonds
-		- See all reserved - **Done**
-		- Reserve a diamond + date reserved - **Done**
-		- Route to see specific reservation - **Done**
-		- Unreserve aka delete - **Done**
-	- Update diamond model to have reserved field: y/n - **Done**
-	- refrence to the user when listing all diamonds reserved - **Done**
-	- Add name field for diamonds - **Done**
-- Seed the DB with Diamonds - **Done**
-- Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
-- Update responses with valid URL's for further requests - **Done**
-- Hosting - LIVE: https://diamondapi.herokuapp.com/diamonds
-	- Heroku - **Done**
-	- ENV Vars - **Done**
-	- Testing - **Done**
-- Documentation using Postman Docs & Add to website
+See package.json for  a full list of dependencies
 
 Created by Matthew Vardi
 

@@ -93,7 +93,7 @@ router.post('/', checkAuth, (req, res) => {
 
 
 //Get specific reservation information - contains all diamond info
-router.get('/:reservationId',checkAuth, (req, res) => {
+router.get('/:reservationId', (req, res) => {
     Reservation.findById(req.params.reservationId)
         .populate('diamond', '_id name shape color clarity carat price certification ') 
         // return full diamond information minus _v0

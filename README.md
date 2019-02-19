@@ -8,7 +8,13 @@ Resource Groups:
 2. Reservations
 3. Users
 
-You can interact with my API using [Postman](https://www.getpostman.com/)
+You can interact with my API using [Postman](https://www.getpostman.com/).
+
+## API Endpoint
+
+The Diamond API uses the endpoint: https://diamondapi.herokuapp.com.
+
+Endpoints that require authentication will have a * next to the verb.
 
 ## Authentication
 
@@ -68,10 +74,11 @@ The token will remain valid for 1 hour, after that you must authenticate again.
 All subsequent calls that make any modificications to the data must include this key in the header.
 
 In order to use the token, include a key-value pair in the header where
-
+```
 Key: "Bearer Token"
 
 Value: {Token Goes Here}
+```
 
 If you do not include your key when using endpoints that require authentication, you will receive this response:
 
@@ -81,13 +88,6 @@ If you do not include your key when using endpoints that require authentication,
 }
 ```
 
-
-
-## API Endpoint
-
-The Diamond API uses the endpoint: https://diamondapi.herokuapp.com
-
-Endpoints that require authentication will have a * next to the verb
 
 ## Resources
 

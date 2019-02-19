@@ -276,7 +276,7 @@ The intent is to deploy this API with full documentation (using postman docs)
 - Seed the DB with Diamonds - **Done**
 - Error handling for invalid ID's (/diamonds and /reserve DELETE request) - **Done**
 - Update responses with valid URL's for further requests - **Done**
-- Hosting - LIVE: https://diamondapi.herokuapp.com
+- Hosting - LIVE: https://diamondapi.herokuapp.com/diamonds
 	- Heroku - **Done**
 	- ENV Vars - **Done**
 	- Testing - **Done**

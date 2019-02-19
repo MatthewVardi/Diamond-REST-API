@@ -355,8 +355,6 @@ Example Response:
 ---
 
 
-Created using Node.js
-
 #### **Project Includes:**
 
 - RESTful Endpoints
@@ -371,7 +369,7 @@ Created using Node.js
 This API is built using Node.js / Express / MongoDB
 Authentication was created using "bcrypt" and "jsonwebtoken"
 
-See package.json for  a full list of dependencies
+See package.json for a full list of dependencies
 
 Created by Matthew Vardi
 
